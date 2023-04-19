@@ -1,8 +1,3 @@
-import {
-    FormStyle, AccountContainer,
-    ContentContainer, ProfileInfoContainer,
-    StyledInput, ProfilePicture, ProfileInfo
-} from '../components/Settings-styles';
 import { ButtonStyled } from '../components/Basic-styles';
 import { useFormik } from 'formik';
 import { LockOutlined, UserOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons';
@@ -10,6 +5,9 @@ import { useSelector, useDispatch } from "react-redux"
 import { getUserAsync } from '../stores/redux/slices/userSlice';
 import { useEffect } from 'react';
 import { updateSchema } from '../utils/yups'
+import { Form, Input } from "antd";
+import styled from "styled-components";
+import headerBackground from "../assets/image/redbg.jpg";
 
 function Settings() {
     const user = useSelector((state) => state.user.data)
@@ -135,5 +133,73 @@ function Settings() {
         </ContentContainer>
     );
 }
+
+const ContentContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background: url(${headerBackground});
+  background-size: 100% 140px;
+  background-repeat: no-repeat;
+  background-position: top;
+  padding: 80px 20px;
+  border: 1px solid grey;
+`;
+
+const FormStyle = styled(Form)`
+  background-color: white;
+  width: 67%;
+  border: 1px solid grey;
+  padding: 20px;
+
+  hr {
+    margin: 10px 0;
+  }
+`;
+
+const AccountContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ProfileInfoContainer = styled.div`
+  width: 30%;
+  background: white;
+  border: 1px solid grey;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  h3 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  width: 50%;
+`;
+
+const ProfilePicture = styled.div`
+  border: 2px solid green;
+  width: 50%;
+  padding-top: 50%;
+`;
+
+const ProfileInfo = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 10px 20px;
+  margin: 10px 0;
+  border-bottom: 1px solid grey;
+
+  p {
+    font-size: 15px;
+    width: 70%;
+  }
+`;
 
 export default Settings;
