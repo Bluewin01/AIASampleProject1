@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import bgimage from "../../assets/redbg.jpg";
+import bgimage from "../assets/image/redbg.jpg";
 import React, { useState } from "react";
 import OtpInput from "react-otp-input";
 import { createGlobalStyle } from 'styled-components';
@@ -61,15 +61,14 @@ function OTPCode() {
 
   const handleOtpSubmit = (e) => {
     e.preventDefault();
-
     if (otp === "111111") {
-      navigate("/home");
+      navigate("/home/email");
     } else {
       // Handle invalid OTP input
       alert("Invalid OTP code");
     }
   };
-
+  console.log(otp);
   return (
     <Background
       style={{
@@ -88,8 +87,10 @@ function OTPCode() {
             numInputs={6}
             inputStyle={{
               borderColor: "white",
+              width: "50px",
+              height: "70px",
+              fontSize: "20px",
               margin: "20px 5px 20px 5px",
-              padding: "20px 20px 20px 20px",
               borderRadius: "5px"
             }}
             containerStyle={{}}

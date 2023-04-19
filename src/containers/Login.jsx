@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import image from "../../assets/IMG_0291.png";
-import bgimage from "../../assets/redbg.jpg";
+import image from "../assets/image/IMG_0291.png";
+import bgimage from "../assets/image/redbg.jpg";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
