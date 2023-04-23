@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import image from "../assets/image/IMG_0291.png";
 import bgimage from "../assets/image/redbg.jpg";
-import { createGlobalStyle } from "styled-components";
 import { useFormik } from 'formik';
 import { loginSchema } from "../utils/yups";
 import { Form } from "antd"
@@ -65,7 +64,6 @@ function Login() {
 
   return (
     <Background>
-      <GlobalStyle />
       <div className="container">
         <FormSubmit onFinish={formik.handleSubmit}>
           <ImageLogo>
@@ -102,14 +100,6 @@ function Login() {
     </Background>
   );
 }
-
-const GlobalStyle = createGlobalStyle`
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Open-Sans, Helvetica, Sans-Serif;
-}
-`;
 
 const Background = styled.div`
   background-image: url(${bgimage});
