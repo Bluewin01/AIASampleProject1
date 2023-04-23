@@ -4,6 +4,104 @@ import { useNavigate } from "react-router-dom";
 import image from "../assets/image/IMG_0291.png";
 import bgimage from "../assets/image/redbg.jpg";
 import { createGlobalStyle } from "styled-components";
+import { useFormik } from 'formik';
+import { loginSchema } from "../utils/yups";
+import { Form } from "antd"
+
+function Login() {
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+
+  // const handleUsernameChange = (event) => {
+  // setUsername(event.target.value);
+  // const { name, value } = event.target;
+  // setU({
+  //   ...formValues,
+  //   [name]: value
+  // });
+  // };
+
+  // const handlePasswordChange = (event) => {
+  //   setPassword(event.target.value);
+  // };
+
+  // const [formValues, setFormValues] = useState({
+  //   username: "",
+  //   password: "",
+  // });
+  const navigate = useNavigate();
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+
+  //   // setShowOtpPopup(true);
+  //   navigate("/otp");
+  // };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: ""
+    },
+    onSubmit: (e) => {
+      navigate("/otp")
+      console.log(e)
+    }
+  })
+
+  const yupSync = {
+    async validator({ field }, value) {
+      await loginSchema.validateSyncAt(field, { [field]: value })
+    }
+  }
+
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormValues({
+  //     ...formValues,
+  //     [name]: value,
+  //   });
+  // };
+
+  return (
+    <Background>
+      <GlobalStyle />
+      <div className="container">
+        <FormSubmit onFinish={formik.handleSubmit}>
+          <ImageLogo>
+            <img src={image} alt="logo" />
+          </ImageLogo>
+          <FormLabel>Email:</FormLabel>
+          <FormSubmit.Item
+            name="email"
+            rules={[yupSync]}
+          >
+            <InputStyled
+              type="text"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+            />
+          </FormSubmit.Item>
+
+          <FormLabel>Password:</FormLabel>
+          <FormSubmit.Item
+            name="password"
+            rules={[yupSync]}
+          >
+            <InputStyled
+              type="password"
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+            />
+          </FormSubmit.Item>
+          <Button type="submit">Log In</Button>
+        </FormSubmit>
+      </div>
+    </Background>
+  );
+}
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -24,11 +122,12 @@ const Background = styled.div`
   align-items: center;
 `;
 
-const FormSubmit = styled.form`
+const FormSubmit = styled(Form)`
   /* display: flex;
   flex-direction: column;
   align-items: center; */
   width: 400px;
+  height: 500px;
   /* background-color: white; */
   border-radius: 5px;
   padding: 20px;
@@ -39,36 +138,31 @@ const FormSubmit = styled.form`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+
+  .ant-form-item-control-input-content {
+    margin: -10px 0;
+  }
 `;
 
 const ImageLogo = styled.div`
-  padding: 0px 0px 25px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 50%;
+
+  img {
+    height: 100%;
+    width: auto;
+  }
 `;
 
-const LabelUsername = styled.label`
+const FormLabel = styled.label`
   display: flex;
   justify-content: flex-start;
   padding: 0px 0px 10px 0px;
 `;
 
-const LabelPassword = styled.label`
-  display: flex;
-  justify-content: flex-start;
-  padding: 0px 0px 10px 0px;
-`;
-
-const InputName = styled.input`
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  margin-bottom: 20px;
-  width: 95%;
-`;
-
-const InputPassword = styled.input`
+const InputStyled = styled.input`
   padding: 10px;
   border-radius: 5px;
   border: none;
@@ -83,83 +177,9 @@ const Button = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.2rem;
-
   width: 100%;
   padding: 10px 0;
 `;
 
-const ContainerButton = styled.div``;
-function Login() {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // const handleUsernameChange = (event) => {
-  // setUsername(event.target.value);
-  // const { name, value } = event.target;
-  // setU({
-  //   ...formValues,
-  //   [name]: value
-  // });
-  // };
-
-  // const handlePasswordChange = (event) => {
-  //   setPassword(event.target.value);
-  // };
-
-  const [formValues, setFormValues] = useState({
-    username: "",
-    password: "",
-  });
-  const navigate = useNavigate();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // setShowOtpPopup(true);
-    navigate("/otp");
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
-
-  return (
-    <Background>
-      <GlobalStyle />
-      <div className="container">
-        <FormSubmit onSubmit={handleSubmit}>
-          <ImageLogo>
-            <img src={image} alt="logo" />
-          </ImageLogo>
-          <LabelUsername>Username:</LabelUsername>
-          <InputName
-            type="text"
-            // id="username"
-            name="username"
-            value={formValues.username}
-            onChange={handleInputChange}
-          />
-
-          <LabelPassword>Password:</LabelPassword>
-          <InputPassword
-            type="password"
-            // id="password"
-            name="password"
-            value={formValues.password}
-            onChange={handleInputChange}
-          />
-
-          <ContainerButton>
-            <Button>Log In</Button>
-          </ContainerButton>
-        </FormSubmit>
-      </div>
-    </Background>
-  );
-}
 
 export default Login;

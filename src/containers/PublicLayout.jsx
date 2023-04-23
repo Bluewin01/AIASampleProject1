@@ -8,6 +8,7 @@ function PublicLayout({ children }) {
     const navigate = useNavigate()
     const location = useLocation()
 
+
     return (
         <LayoutStyle>
             <SiderStyle
