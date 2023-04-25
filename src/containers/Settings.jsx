@@ -192,13 +192,13 @@ const ProfileInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px 10px 20px;
-  margin: 10px 0;
+  padding: 0 20px;
+  margin: 5px 0;
   border-bottom: 1px solid grey;
 
   p {
     font-size: 15px;
-    width: 70%;
+    width: 90%;
   }
 `;
 

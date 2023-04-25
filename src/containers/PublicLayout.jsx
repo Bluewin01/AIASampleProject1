@@ -107,12 +107,12 @@ const LogoContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 9.5%;
+  height: 10.5vh;
   padding: 2px;
 
   img {
     width: auto;
-    height: 90%;
+    height: 85%;
   }
 `;
 
