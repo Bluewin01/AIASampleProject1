@@ -8,7 +8,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route path="otp" element={<OTPCode />} />
-        <Route path="home" element={<Home />}>
+        <Route element={<Home />}>
           <Route path="email" element={<EmailEditor />} />
           <Route path="settings" element={<Settings />} />
         </Route>

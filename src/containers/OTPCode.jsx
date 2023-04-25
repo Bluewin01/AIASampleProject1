@@ -62,7 +62,7 @@ function OTPCode() {
   const handleOtpSubmit = (e) => {
     e.preventDefault();
     if (otp === "111111") {
-      navigate("/home/email");
+      navigate("/email");
     } else {
       // Handle invalid OTP input
       alert("Invalid OTP code");

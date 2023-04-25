@@ -2,7 +2,9 @@ import * as Yup from "yup";
 
 // Update profile validator
 export const updateSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email must be filled"),
+  email: Yup.string()
+    .email("Email is invalid")
+    .required("Email must be filled"),
   password: Yup.string()
     .required("Password must be filled")
     .min(8, "Pasword must be 8 or more characters")
@@ -22,6 +24,7 @@ export const updateSchema = Yup.object().shape({
     .max(14, "Phone Number Cannot exceed 14 digits"),
 });
 
+// Login validator
 export const loginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email must be filled"),
   password: Yup.string()

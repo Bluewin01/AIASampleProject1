@@ -5,6 +5,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     data: [],
+    loading: false,
   },
   reducers: {
     fetchUserInfo: (state, action) => {
@@ -30,6 +31,15 @@ export const loginAsync = (data) => async (dispatch) => {
   try {
     const response = await baseApi.post("login", data);
     dispatch(fetchUserInfo(response.data));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateProfileAsync = (data) => async (dispatch) => {
+  try {
+    const response = await baseApi.put("update", data);
+    dispatch(createUser(response.data));
   } catch (err) {
     console.log(err);
   }

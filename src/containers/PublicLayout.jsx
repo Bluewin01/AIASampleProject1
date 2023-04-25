@@ -28,18 +28,18 @@ function PublicLayout({ children }) {
         <MenuStyle
           mode="inline"
           defaultSelectedKeys={
-            location.pathname === "/home/email" ? ["1"] : ["2"]
+            location.pathname === "/email" ? ["1"] : ["2"]
           }
         >
           <MenuStyle.Item
             key="1"
-            onClick={() => navigate('/home/email')}
+            onClick={() => navigate('/email')}
           >
             Email Editor
           </MenuStyle.Item>
           <MenuStyle.Item
             key="2"
-            onClick={() => navigate('/home/settings')}
+            onClick={() => navigate('/settings')}
           >
             Settings
           </MenuStyle.Item>
@@ -111,8 +111,8 @@ const LogoContainer = styled.div`
   padding: 2px;
 
   img {
-    width: 80%;
-    height: auto;
+    width: auto;
+    height: 90%;
   }
 `;
 
