@@ -5,57 +5,55 @@ import styled from "styled-components";
 import { Layout, Menu } from "antd";
 
 function PublicLayout({ children }) {
-    const navigate = useNavigate()
-    const location = useLocation()
+  const navigate = useNavigate()
+  const location = useLocation()
 
 
-    return (
-        <LayoutStyle>
-            <SiderStyle
-                breakpoint="lg"
-                collapsedWidth="0"
-                onBreakpoint={(broken) => {
-                    console.log(broken);
-                }}
-                onCollapse={(collapsed, type) => {
-                    console.log(collapsed, type);
-                }}
-            >
-                <LogoContainer>
-                    <img src={logoAia} style={{
-                        width: "87%"
-                    }} alt="" />
-                </LogoContainer>
+  return (
+    <LayoutStyle>
+      <SiderStyle
+        breakpoint="lg"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
+      >
+        <LogoContainer>
+          <img src={logoAia} alt="" />
+        </LogoContainer>
 
-                <MenuStyle
-                    mode="inline"
-                    defaultSelectedKeys={
-                        location.pathname === "/home/email" ? ["1"] : ["2"]
-                    }
-                >
-                    <MenuStyle.Item
-                        key="1"
-                        onClick={() => navigate('/home/email')}
-                    >
-                        Email Editor
-                    </MenuStyle.Item>
-                    <MenuStyle.Item
-                        key="2"
-                        onClick={() => navigate('/home/settings')}
-                    >
-                        Settings
-                    </MenuStyle.Item>
+        <MenuStyle
+          mode="inline"
+          defaultSelectedKeys={
+            location.pathname === "/home/email" ? ["1"] : ["2"]
+          }
+        >
+          <MenuStyle.Item
+            key="1"
+            onClick={() => navigate('/home/email')}
+          >
+            Email Editor
+          </MenuStyle.Item>
+          <MenuStyle.Item
+            key="2"
+            onClick={() => navigate('/home/settings')}
+          >
+            Settings
+          </MenuStyle.Item>
 
-                </MenuStyle>
-            </SiderStyle>
-            <LayoutStyle>
-                <HeaderStyle />
-                <ContentStyle>
-                    {children}
-                </ContentStyle>
-            </LayoutStyle>
-        </LayoutStyle>
-    );
+        </MenuStyle>
+      </SiderStyle>
+      <LayoutStyle>
+        <HeaderStyle />
+        <ContentStyle>
+          {children}
+        </ContentStyle>
+      </LayoutStyle>
+    </LayoutStyle>
+  );
 };
 
 const { Header, Content, Sider } = Layout;
@@ -108,6 +106,14 @@ const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 9.5%;
+  padding: 2px;
+
+  img {
+    width: 80%;
+    height: auto;
+  }
 `;
 
 export default PublicLayout;

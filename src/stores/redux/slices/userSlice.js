@@ -25,6 +25,16 @@ export const getUserAsync = () => async (dispatch) => {
   }
 };
 
+export const loginAsync = (data) => async (dispatch) => {
+  console.log(data);
+  try {
+    const response = await baseApi.post("login", data);
+    dispatch(fetchUserInfo(response.data));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const createUserAsync = (data) => async (disptach) => {
   try {
     const response = await baseApi.post("register", data);

@@ -6,29 +6,13 @@ import bgimage from "../assets/image/redbg.jpg";
 import { useFormik } from 'formik';
 import { loginSchema } from "../utils/yups";
 import { Form } from "antd"
+import { useSelector, useDispatch } from "react-redux"
+import { loginAsync } from '../stores/redux/slices/userSlice'
 
 function Login() {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
 
-  // const handleUsernameChange = (event) => {
-  // setUsername(event.target.value);
-  // const { name, value } = event.target;
-  // setU({
-  //   ...formValues,
-  //   [name]: value
-  // });
-  // };
-
-  // const handlePasswordChange = (event) => {
-  //   setPassword(event.target.value);
-  // };
-
-  // const [formValues, setFormValues] = useState({
-  //   username: "",
-  //   password: "",
-  // });
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -37,14 +21,24 @@ function Login() {
   //   navigate("/otp");
   // };
 
+  async function login(e) {
+    // console.log(e)
+    try {
+      dispatch(loginAsync(e))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: ""
     },
     onSubmit: (e) => {
+      login(e)
       navigate("/otp")
-      console.log(e)
+      // console.log(formValues)
     }
   })
 
@@ -60,6 +54,8 @@ function Login() {
   //     ...formValues,
   //     [name]: value,
   //   });
+
+  //   formik.handleChange(event)
   // };
 
   return (
@@ -101,6 +97,7 @@ function Login() {
   );
 }
 
+// Styled Components
 const Background = styled.div`
   background-image: url(${bgimage});
   background-repeat: no-repeat;
