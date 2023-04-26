@@ -2,8 +2,6 @@ import { ButtonStyled } from '../components/Basic-styles';
 import { useFormik } from 'formik';
 import { LockOutlined, UserOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from "react-redux"
-import { getUserAsync } from '../stores/redux/slices/userSlice';
-import { useEffect } from 'react';
 import { updateSchema } from '../utils/yups'
 import { Form, Input } from "antd";
 import styled from "styled-components";
@@ -13,17 +11,17 @@ function Settings() {
     const user = useSelector((state) => state.user.data)
     const dispatch = useDispatch()
 
-    async function fetchData() {
-        try {
-            dispatch(getUserAsync())
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    // async function fetchData() {
+    //     try {
+    //         dispatch(getUserAsync())
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+    // useEffect(() => {
+    //     fetchData()
+    // }, [])
 
     console.log(user)
 

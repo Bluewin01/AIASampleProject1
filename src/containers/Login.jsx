@@ -6,25 +6,25 @@ import bgimage from "../assets/image/redbg.jpg";
 import { useFormik } from 'formik';
 import { loginSchema } from "../utils/yups";
 import { Form } from "antd"
-import { useSelector, useDispatch } from "react-redux"
-import { loginAsync } from '../stores/redux/slices/userSlice'
+import baseApi from "../networks/baseApi";
+import { loginSuccess } from "../stores/redux/slices/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 function Login() {
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   // setShowOtpPopup(true);
-  //   navigate("/otp");
-  // };
+  const dispatch = useDispatch();
 
   async function login(e) {
-    // console.log(e)
     try {
-      dispatch(loginAsync(e))
+      const response = await axios.post("http://localhost:5000/api/v1/user/login", e);
+      const token = response.data.bearer_token
+      localStorage.setItem("token", token)
+      dispatch(loginSuccess(token));
+      navigate("otp")
+
+      console.log(response)
     } catch (err) {
       console.log(err)
     }
@@ -37,7 +37,6 @@ function Login() {
     },
     onSubmit: (e) => {
       login(e)
-      navigate("/otp")
       // console.log(formValues)
     }
   })

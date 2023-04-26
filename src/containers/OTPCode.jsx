@@ -3,7 +3,61 @@ import styled from "styled-components";
 import bgimage from "../assets/image/redbg.jpg";
 import React, { useState } from "react";
 import OtpInput from "react-otp-input";
-import { createGlobalStyle } from 'styled-components';
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { otpSuccess } from "../stores/redux/slices/userSlice"
+
+function OTPCode() {
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  async function handleOtpSubmit(e) {
+    e.preventDefault()
+    const token = localStorage.getItem("token")
+    const body = {
+      otp: otp
+    }
+    try {
+      await axios.post("http://localhost:5000/api/v1/user/otp", body, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      dispatch(otpSuccess(otp))
+      navigate("/email")
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  return (
+    <Background>
+      <OTPPopUp>
+        <form onSubmit={handleOtpSubmit}>
+          <label htmlFor="otp">Enter OTP code:</label>
+          <OtpInput
+            value={otp}
+            onChange={setOtp}
+            numInputs={6}
+            inputStyle={{
+              borderColor: "white",
+              width: "50px",
+              height: "70px",
+              fontSize: "20px",
+              margin: "20px 5px 20px 5px",
+              borderRadius: "5px"
+            }}
+            containerStyle={{}}
+            // renderSeparator={<span>-</span>}
+            renderInput={(props) => <input {...props} />}
+          />
+          <ContainerButton><Button>Submit</Button></ContainerButton>
+        </form>
+      </OTPPopUp>
+    </Background>
+  );
+}
 
 const Background = styled.div`
   background-image: url(${bgimage});
@@ -14,14 +68,6 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const GlobalStyle = createGlobalStyle`
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Open-Sans, Helvetica, Sans-Serif;
-}
 `;
 
 const OTPPopUp = styled.div`
@@ -54,54 +100,5 @@ const ContainerButton = styled.div`
   justify-content: center;
   
 `
-
-function OTPCode() {
-  const [otp, setOtp] = useState("");
-  const navigate = useNavigate();
-
-  const handleOtpSubmit = (e) => {
-    e.preventDefault();
-    if (otp === "111111") {
-      navigate("/email");
-    } else {
-      // Handle invalid OTP input
-      alert("Invalid OTP code");
-    }
-  };
-  console.log(otp);
-  return (
-    <Background
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <GlobalStyle />
-      <OTPPopUp>
-        <form onSubmit={handleOtpSubmit}>
-          <label htmlFor="otp">Enter OTP code:</label>
-          <OtpInput
-            value={otp}
-            onChange={setOtp}
-            numInputs={6}
-            inputStyle={{
-              borderColor: "white",
-              width: "50px",
-              height: "70px",
-              fontSize: "20px",
-              margin: "20px 5px 20px 5px",
-              borderRadius: "5px"
-            }}
-            containerStyle={{}}
-            // renderSeparator={<span>-</span>}
-            renderInput={(props) => <input {...props} />}
-          />
-          <ContainerButton><Button>Submit</Button></ContainerButton>
-        </form>
-      </OTPPopUp>
-    </Background>
-  );
-}
 
 export default OTPCode;
