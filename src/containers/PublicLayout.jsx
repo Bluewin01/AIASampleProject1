@@ -107,7 +107,7 @@ const LogoContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 10.5vh;
+  height: 64px;
   padding: 2px;
 
   img {
